@@ -30,7 +30,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
      * @var       array
      * @access    private
      */
-    var $_options = array();
+    public $_options = [];
 
     /**
      * Number of select elements on this group
@@ -38,7 +38,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
      * @var       int
      * @access    private
      */
-    var $_nbElements = 0;
+    public $_nbElements = 0;
 
     /**
      * The javascript used to set and change the options
@@ -46,7 +46,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
      * @var       string
      * @access    private
      */
-    var $_js = '';
+    public $_js = '';
 
     /**
      * Class constructor
@@ -125,7 +125,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
             // check if all elements have been created
             $totalNbElements = count($this->_options);
             for ($i = $this->_nbElements; $i < $totalNbElements; $i ++) {
-                $this->_elements[] = new HTML_QuickForm_select($i, null, array(), $this->getAttributes());
+                $this->_elements[] = new HTML_QuickForm_select($i, null, [], $this->getAttributes());
                 $this->_nbElements++;
             }
         }
@@ -170,7 +170,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
             // check if all elements have been created
             $totalNbElements = 2;
             for ($i = $this->_nbElements; $i < $totalNbElements; $i ++) {
-                $this->_elements[] = new HTML_QuickForm_select($i, null, array(), $this->getAttributes());
+                $this->_elements[] = new HTML_QuickForm_select($i, null, [], $this->getAttributes());
                 $this->_nbElements++;
             }
         }
@@ -192,7 +192,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
                     $array = empty($arrayKeys) ? $this->_options[$key] : HTML_QuickForm_utils::recursiveValue($this->_options[$key], $arrayKeys);
                     if (is_array($array)) {
                         $select =& $this->_elements[$key];
-                        $select->_options = array();
+                        $select->_options = [];
                         $select->loadArray($array);
 
                         $value = is_array($v = $select->getValue()) ? $v[0] : key($array);
@@ -227,7 +227,7 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
     function _createElements()
     {
         for ($i = 0; $i < $this->_nbElements; $i++) {
-            $this->_elements[] = new HTML_QuickForm_select($i, null, array(), $this->getAttributes());
+            $this->_elements[] = new HTML_QuickForm_select($i, null, [], $this->getAttributes());
         }
     }
 
@@ -237,12 +237,12 @@ class HTML_QuickForm_hierselect extends HTML_QuickForm_group
         if (!$this->_flagFrozen) {
             // set the onchange attribute for each element except last
             $keys     = array_keys($this->_elements);
-            $onChange = array();
+            $onChange = [];
             for ($i = 0; $i < count($keys) - 1; $i++) {
                 $select =& $this->_elements[$keys[$i]];
                 $onChange[$i] = $select->getAttribute('onchange');
                 $select->updateAttributes(
-                    array('onchange' => '_hs_swapOptions(this.form, \'' . $this->_escapeString($this->getName()) . '\', ' . $keys[$i] . ');' . $onChange[$i])
+                    ['onchange' => '_hs_swapOptions(this.form, \'' . $this->_escapeString($this->getName()) . '\', ' . $keys[$i] . ');' . $onChange[$i]]
                 );
             }
 
@@ -378,7 +378,7 @@ JAVASCRIPT;
                 define('HTML_QUICKFORM_HIERSELECT_EXISTS', true);
             }
             // option lists
-            $jsParts = array();
+            $jsParts = [];
             for ($i = 1; $i < $this->_nbElements; $i++) {
                 $jsParts[] = $this->_convertArrayToJavascript($this->_prepareOptions($this->_options[$i], $i));
             }
@@ -387,14 +387,14 @@ JAVASCRIPT;
                           "\n];\n";
             // default value; if we don't actually have any values yet just use
             // the first option (for single selects) or empty array (for multiple)
-            $values = array();
+            $values = [];
             foreach (array_keys($this->_elements) as $key) {
                 if (is_array($v = $this->_elements[$key]->getValue())) {
                     $values[] = count($v) > 1? $v: $v[0];
                 } else {
                     // XXX: accessing the supposedly private _options array
                     $values[] = $this->_elements[$key]->getMultiple() || empty($this->_elements[$key]->_options[0])?
-                                array():
+                                []:
                                 $this->_elements[$key]->_options[0]['attr']['value'];
                 }
             }
@@ -408,7 +408,7 @@ JAVASCRIPT;
         if (!empty($onChange)) {
             $keys     = array_keys($this->_elements);
             for ($i = 0; $i < count($keys) - 1; $i++) {
-                $this->_elements[$keys[$i]]->updateAttributes(array('onchange' => $onChange[$i]));
+                $this->_elements[$keys[$i]]->updateAttributes(['onchange' => $onChange[$i]]);
             }
         }
         return (empty($this->_js)? '': "<script type=\"text/javascript\">\n//<![CDATA[\n" . $this->_js . "//]]>\n</script>") .
@@ -433,12 +433,12 @@ JAVASCRIPT;
                 $onReset = $caller->getAttribute('onreset');
                 if (strlen($onReset)) {
                     if (strpos($onReset, '_hs_setupOnReset')) {
-                        $caller->updateAttributes(array('onreset' => str_replace('_hs_setupOnReset(this, [', "_hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "', ", $onReset)));
+                        $caller->updateAttributes(['onreset' => str_replace('_hs_setupOnReset(this, [', "_hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "', ", $onReset)]);
                     } else {
-                        $caller->updateAttributes(array('onreset' => "var temp = function() { {$onReset} } ; if (!temp()) { return false; } ; if (typeof _hs_setupOnReset != 'undefined') { return _hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "']); } "));
+                        $caller->updateAttributes(['onreset' => "var temp = function() { {$onReset} } ; if (!temp()) { return false; } ; if (typeof _hs_setupOnReset != 'undefined') { return _hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "']); } "]);
                     }
                 } else {
-                    $caller->updateAttributes(array('onreset' => "if (typeof _hs_setupOnReset != 'undefined') { return _hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "']); } "));
+                    $caller->updateAttributes(['onreset' => "if (typeof _hs_setupOnReset != 'undefined') { return _hs_setupOnReset(this, ['" . $this->_escapeString($this->getName()) . "']); } "]);
                 }
             }
             return $ret;
@@ -464,9 +464,9 @@ JAVASCRIPT;
         if (!is_array($ary)) {
             $ret = $ary;
         } elseif (0 == $depth) {
-            $ret = array('values' => array_keys($ary), 'texts' => array_values($ary));
+            $ret = ['values' => array_keys($ary), 'texts' => array_values($ary)];
         } else {
-            $ret = array();
+            $ret = [];
             foreach ($ary as $k => $v) {
                 $ret[$k] = $this->_prepareOptions($v, $depth - 1);
             }
@@ -487,12 +487,12 @@ JAVASCRIPT;
             return $this->_convertScalarToJavascript($array);
         } elseif (count($array) && array_keys($array) != range(0, count($array) - 1)) {
             return '{' . implode(',', array_map(
-                array($this, '_encodeNameValue'),
+                [$this, '_encodeNameValue'],
                 array_keys($array), array_values($array)
             )) . '}';
         } else {
             return '[' . implode(',', array_map(
-                array($this, '_convertArrayToJavascript'),
+                [$this, '_convertArrayToJavascript'],
                 $array
             )) . ']';
         }
@@ -543,13 +543,6 @@ JAVASCRIPT;
     */
     function _escapeString($str)
     {
-        return strtr($str,array(
-            "\r"    => '\r',
-            "\n"    => '\n',
-            "\t"    => '\t',
-            "'"     => "\\'",
-            '"'     => '\"',
-            '\\'    => '\\\\'
-        ));
+        return strtr($str,["\r"    => '\r', "\n"    => '\n', "\t"    => '\t', "'"     => "\\'", '"'     => '\"', '\\'    => '\\\\']);
     }
 }

@@ -38,7 +38,7 @@ class HTML_QuickForm_image extends HTML_QuickForm_input
      */
     public function setSource($src)
     {
-        $this->updateAttributes(array('src' => $src));
+        $this->updateAttributes(['src' => $src]);
     }
 
     /**
@@ -48,7 +48,7 @@ class HTML_QuickForm_image extends HTML_QuickForm_input
      */
     public function setBorder($border)
     {
-        $this->updateAttributes(array('border' => $border));
+        $this->updateAttributes(['border' => $border]);
     }
 
     /**
@@ -58,7 +58,7 @@ class HTML_QuickForm_image extends HTML_QuickForm_input
      */
     public function setAlign($align)
     {
-        $this->updateAttributes(array('align' => $align));
+        $this->updateAttributes(['align' => $align]);
     }
 
     /**

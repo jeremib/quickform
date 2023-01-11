@@ -34,7 +34,7 @@ class HTML_QuickForm_advcheckbox extends HTML_QuickForm_checkbox
      * @var array
      * @access private
      */
-    var $_values = null;
+    public $_values = null;
 
     /**
      * The default value
@@ -42,7 +42,7 @@ class HTML_QuickForm_advcheckbox extends HTML_QuickForm_checkbox
      * @var boolean
      * @access private
      */
-    var $_currentValue = null;
+    public $_currentValue = null;
 
     /**
      * Class constructor
@@ -97,15 +97,15 @@ class HTML_QuickForm_advcheckbox extends HTML_QuickForm_checkbox
     {
         if (empty($values)) {
             // give it default checkbox behavior
-            $this->_values = array('', 1);
+            $this->_values = ['', 1];
         } elseif (is_scalar($values)) {
             // if it's string, then assume the value to
             // be passed is for when the element is checked
-            $this->_values = array('', $values);
+            $this->_values = ['', $values];
         } else {
             $this->_values = $values;
         }
-        $this->updateAttributes(array('value' => $this->_values[1]));
+        $this->updateAttributes(['value' => $this->_values[1]]);
         $this->setChecked($this->_currentValue == $this->_values[1]);
     }
 
@@ -145,11 +145,7 @@ class HTML_QuickForm_advcheckbox extends HTML_QuickForm_checkbox
         if ($this->_flagFrozen) {
             return parent::toHtml();
         } else {
-            return '<input' . $this->_getAttrString(array(
-                        'type'  => 'hidden',
-                        'name'  => $this->getName(),
-                        'value' => $this->_values[0]
-                   )) . ' />' . parent::toHtml();
+            return '<input' . $this->_getAttrString(['type'  => 'hidden', 'name'  => $this->getName(), 'value' => $this->_values[0]]) . ' />' . parent::toHtml();
 
         }
     }

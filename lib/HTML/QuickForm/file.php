@@ -22,7 +22,7 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
     * Uploaded file data, from $_FILES
     * @var array
     */
-    var $_value = null;
+    public $_value = null;
 
     /**
      * Class constructor
@@ -52,7 +52,7 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
      */
     public function setSize($size)
     {
-        $this->updateAttributes(array('size' => $size));
+        $this->updateAttributes(['size' => $size]);
     }
 
     /**
@@ -117,7 +117,7 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
                     throw new HTML_QuickForm_Error('Cannot add a file upload field to a GET method form');
                 }
                 $this->_value = $this->_findValue($_FILES);
-                $caller->updateAttributes(array('enctype' => 'multipart/form-data'));
+                $caller->updateAttributes(['enctype' => 'multipart/form-data']);
                 $caller->setMaxFileSize();
                 break;
             case 'addElement':
@@ -246,11 +246,11 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
             return $values[$elementName];
         } elseif (false !== ($pos = strpos($elementName, '['))) {
             $base  = str_replace(
-                array('\\', '\''), array('\\\\', '\\\''),
+                ['\\', '\''], ['\\\\', '\\\''],
                 substr($elementName, 0, $pos)
             );
             $keys = str_replace(
-                array('\\', '\'', ']', '['), array('\\\\', '\\\'', '', "']['"),
+                ['\\', '\'', ']', '['], ['\\\\', '\\\'', '', "']['"],
                 substr($elementName, $pos + 1, -1)
             );
             $keysArray = explode("']['", $keys);
@@ -258,8 +258,8 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
             if (!HTML_QuickForm_utils::recursiveIsset($values[$base]['name'], $keysArray)) {
                 return null;
             }
-            $props = array('name', 'type', 'size', 'tmp_name', 'error');
-            $value = array();
+            $props = ['name', 'type', 'size', 'tmp_name', 'error'];
+            $value = [];
             foreach ($props as $prop) {
                 $value[$prop] = HTML_QuickForm_utils::recursiveValue($values[$base][$prop], $keysArray);
             }

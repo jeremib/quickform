@@ -22,7 +22,7 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      * @var       string
      * @access    private
      */
-    var $_value = null;
+    public $_value = null;
 
     /**
      * Class constructor
@@ -45,7 +45,7 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      */
     public function setName($name)
     {
-        $this->updateAttributes(array('name'=>$name));
+        $this->updateAttributes(['name'=>$name]);
     }
 
     /**
@@ -85,7 +85,7 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      */
     public function setWrap($wrap)
     {
-        $this->updateAttributes(array('wrap' => $wrap));
+        $this->updateAttributes(['wrap' => $wrap]);
     }
 
     /**
@@ -95,7 +95,7 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      */
     public function setRows($rows)
     {
-        $this->updateAttributes(array('rows' => $rows));
+        $this->updateAttributes(['rows' => $rows]);
     }
 
     /**
@@ -105,7 +105,7 @@ class HTML_QuickForm_textarea extends HTML_QuickForm_element
      */
     public function setCols($cols)
     {
-        $this->updateAttributes(array('cols' => $cols));
+        $this->updateAttributes(['cols' => $cols]);
     }
 
     /**

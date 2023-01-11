@@ -24,7 +24,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
      * @var       array
      * @access    private
      */
-    var $_options = array();
+    public $_options = [];
 
     /**
      * Default values of the SELECT
@@ -32,7 +32,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
      * @var       string
      * @access    private
      */
-    var $_values = null;
+    public $_values = null;
 
     /**
      * Class constructor
@@ -75,7 +75,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
         if (is_array($values)) {
             $this->_values = array_values($values);
         } else {
-            $this->_values = array($values);
+            $this->_values = [$values];
         }
     }
 
@@ -96,7 +96,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
      */
     public function setName($name)
     {
-        $this->updateAttributes(array('name' => $name));
+        $this->updateAttributes(['name' => $name]);
     }
 
     /**
@@ -150,7 +150,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
      */
     public function setSize($size)
     {
-        $this->updateAttributes(array('size' => $size));
+        $this->updateAttributes(['size' => $size]);
     }
 
     /**
@@ -171,7 +171,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
     public function setMultiple($multiple)
     {
         if ($multiple) {
-            $this->updateAttributes(array('multiple' => 'multiple'));
+            $this->updateAttributes(['multiple' => 'multiple']);
         } else {
             $this->removeAttribute('multiple');
         }
@@ -198,21 +198,21 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
     public function addOption($text, $value, $attributes=null)
     {
         if (null === $attributes) {
-            $attributes = array('value' => (string)$value);
+            $attributes = ['value' => (string)$value];
         } else {
             $attributes = $this->_parseAttributes($attributes);
             if (isset($attributes['selected'])) {
                 // the 'selected' attribute will be set in toHtml()
                 $this->_removeAttr('selected', $attributes);
                 if (is_null($this->_values)) {
-                    $this->_values = array($value);
+                    $this->_values = [$value];
                 } elseif (!in_array($value, $this->_values)) {
                     $this->_values[] = $value;
                 }
             }
-            $this->_updateAttrArray($attributes, array('value' => (string)$value));
+            $this->_updateAttrArray($attributes, ['value' => (string)$value]);
         }
-        $this->_options[] = array('text' => $text, 'attr' => $attributes);
+        $this->_options[] = ['text' => $text, 'attr' => $attributes];
     }
 
     /**
@@ -353,7 +353,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
             }
             $strHtml .= $tabs . '<select' . $attrString . ">\n";
 
-            $strValues = is_array($this->_values)? array_map('strval', $this->_values): array();
+            $strValues = is_array($this->_values)? array_map('strval', $this->_values): [];
             foreach ($this->_options as $option) {
                 if (!empty($strValues) && in_array($option['attr']['value'], $strValues, true)) {
                     $option['attr']['selected'] = 'selected';
@@ -373,7 +373,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
      */
     public function getFrozenHtml()
     {
-        $value = array();
+        $value = [];
         if (is_array($this->_values)) {
             foreach ($this->_values as $key => $val) {
                 for ($i = 0, $optCount = count($this->_options); $i < $optCount; $i++) {
@@ -390,16 +390,12 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
             // Only use id attribute if doing single hidden input
             if (1 == count($value)) {
                 $id     = $this->getAttribute('id');
-                $idAttr = isset($id)? array('id' => $id): array();
+                $idAttr = isset($id)? ['id' => $id]: [];
             } else {
-                $idAttr = array();
+                $idAttr = [];
             }
             foreach ($value as $key => $item) {
-                $html .= '<input' . $this->_getAttrString(array(
-                             'type'  => 'hidden',
-                             'name'  => $name,
-                             'value' => $this->_values[$key]
-                         ) + $idAttr) . ' />';
+                $html .= '<input' . $this->_getAttrString(['type'  => 'hidden', 'name'  => $name, 'value' => $this->_values[$key]] + $idAttr) . ' />';
             }
         }
         return $html;
@@ -415,7 +411,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element
         if (is_null($value)) {
             $value = $this->getValue();
         } elseif(!is_array($value)) {
-            $value = array($value);
+            $value = [$value];
         }
         if (is_array($value) && !empty($this->_options)) {
             $cleanValue = null;

@@ -25,7 +25,7 @@ class HTML_QuickForm_input extends HTML_QuickForm_element
     public function setType($type)
     {
         $this->_type = $type;
-        $this->updateAttributes(array('type'=>$type));
+        $this->updateAttributes(['type'=>$type]);
     }
 
     /**
@@ -35,7 +35,7 @@ class HTML_QuickForm_input extends HTML_QuickForm_element
      */
     public function setName($name)
     {
-        $this->updateAttributes(array('name'=>$name));
+        $this->updateAttributes(['name'=>$name]);
     }
 
     /**
@@ -55,7 +55,7 @@ class HTML_QuickForm_input extends HTML_QuickForm_element
      */
     public function setValue($value)
     {
-        $this->updateAttributes(array('value'=>$value));
+        $this->updateAttributes(['value'=>$value]);
     }
 
     /**

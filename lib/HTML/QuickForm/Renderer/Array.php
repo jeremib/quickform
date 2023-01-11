@@ -121,10 +121,8 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
 
     /**
      * Additional style information for different elements
-     *
-     * @var array
      */
-    private $_elementStyles = array();
+    private array $_elementStyles = [];
 
     /**
      * true: collect all hidden elements into string; false: process them as usual form elements
@@ -168,13 +166,7 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
      */
     public function startForm(&$form)
     {
-        $this->_ary = array(
-            'frozen'            => $form->isFrozen(),
-            'javascript'        => $form->getValidationScript(),
-            'attributes'        => $form->getAttributes(true),
-            'requirednote'      => $form->getRequiredNote(),
-            'errors'            => array()
-        );
+        $this->_ary = ['frozen'            => $form->isFrozen(), 'javascript'        => $form->getValidationScript(), 'attributes'        => $form->getAttributes(true), 'requirednote'      => $form->getRequiredNote(), 'errors'            => []];
         if ($this->_collectHidden) {
             $this->_ary['hidden'] = '';
         }
@@ -187,10 +179,7 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
      */
     public function renderHeader(&$header)
     {
-        $this->_ary['sections'][$this->_sectionCount] = array(
-            'header' => $header->toHtml(),
-            'name'   => $header->getName()
-        );
+        $this->_ary['sections'][$this->_sectionCount] = ['header' => $header->toHtml(), 'name'   => $header->getName()];
         $this->_currentSection = $this->_sectionCount++;
     }
 
@@ -248,14 +237,7 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
      */
     protected function _elementToArray(&$element, $required, $error)
     {
-        $ret = array(
-            'name'      => $element->getName(),
-            'value'     => $element->getValue(),
-            'type'      => $element->getType(),
-            'frozen'    => $element->isFrozen(),
-            'required'  => $required,
-            'error'     => $error
-        );
+        $ret = ['name'      => $element->getName(), 'value'     => $element->getValue(), 'type'      => $element->getType(), 'frozen'    => $element->isFrozen(), 'required'  => $required, 'error'     => $error];
         // render label(s)
         $labels = $element->getLabel();
         if (is_array($labels) && $this->_staticLabels) {
@@ -277,7 +259,7 @@ class HTML_QuickForm_Renderer_Array extends HTML_QuickForm_Renderer
         }
         if ('group' == $ret['type']) {
             $ret['separator'] = $element->_separator;
-            $ret['elements']  = array();
+            $ret['elements']  = [];
         } else {
             $ret['html']      = $element->toHtml();
         }

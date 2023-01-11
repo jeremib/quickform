@@ -29,43 +29,43 @@ class HTML_QuickForm_Renderer_ITDynamic extends HTML_QuickForm_Renderer
     * A template class (HTML_Template_ITX or HTML_Template_Sigma) instance
     * @var HTML_Template_ITX|HTML_Template_Sigma
     */
-    var $_tpl = null;
+    public $_tpl = null;
 
    /**
     * The errors that were not shown near concrete fields go here
     * @var array
     */
-    var $_errors = array();
+    public $_errors = [];
 
    /**
     * Show the block with required note?
     * @var bool
     */
-    var $_showRequired = false;
+    public $_showRequired = false;
 
    /**
     * A separator for group elements
     * @var mixed
     */
-    var $_groupSeparator = null;
+    public $_groupSeparator = null;
 
    /**
     * The current element index inside a group
     * @var integer
     */
-    var $_groupElementIdx = 0;
+    public $_groupElementIdx = 0;
 
    /**
     * Blocks to use for different elements
     * @var array
     */
-    var $_elementBlocks = array();
+    public $_elementBlocks = [];
 
    /**
     * Block to use for headers
     * @var string
     */
-    var $_headerBlock = null;
+    public $_headerBlock = null;
    /**#@-*/
 
 

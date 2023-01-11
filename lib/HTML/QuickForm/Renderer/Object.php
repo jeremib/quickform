@@ -23,43 +23,43 @@ class HTML_QuickForm_Renderer_Object extends HTML_QuickForm_Renderer
      * The object being generated
      * @var QuickformForm
      */
-    var $_obj= null;
+    public $_obj= null;
 
     /**
      * Number of sections in the form (i.e. number of headers in it)
      * @var integer $_sectionCount
      */
-    var $_sectionCount;
+    public $_sectionCount;
 
     /**
     * Current section number
     * @var integer $_currentSection
     */
-    var $_currentSection;
+    public $_currentSection;
 
     /**
     * Object representing current group
     * @var object $_currentGroup
     */
-    var $_currentGroup = null;
+    public $_currentGroup = null;
 
     /**
      * Class of Element Objects
      * @var object $_elementType
      */
-    var $_elementType = 'QuickFormElement';
+    public $_elementType = 'QuickFormElement';
 
     /**
     * Additional style information for different elements
     * @var array $_elementStyles
     */
-    var $_elementStyles = array();
+    public $_elementStyles = [];
 
     /**
     * true: collect all hidden elements into string; false: process them as usual form elements
     * @var bool $_collectHidden
     */
-    var $_collectHidden = false;
+    public $_collectHidden = false;
    /**#@-*/
 
 
@@ -198,7 +198,7 @@ class HTML_QuickForm_Renderer_Object extends HTML_QuickForm_Renderer
         }
         if($ret->type == 'group') {
             $ret->separator = $element->_separator;
-            $ret->elements = array();
+            $ret->elements = [];
         } else {
             $ret->html = $element->toHtml();
         }
@@ -258,31 +258,31 @@ class QuickformForm
     * Whether the form has been frozen
     * @var boolean $frozen
     */
-    var $frozen;
+    public $frozen;
 
    /**
     * Javascript for client-side validation
     * @var string $javascript
     */
-    var $javascript;
+    public $javascript;
 
    /**
     * Attributes for form tag
     * @var string $attributes
     */
-    var $attributes;
+    public $attributes;
 
    /**
     * Note about required elements
     * @var string $requirednote
     */
-    var $requirednote;
+    public $requirednote;
 
    /**
     * Collected html of all hidden variables
     * @var string $hidden
     */
-    var $hidden;
+    public $hidden;
 
    /**
     * Set if there were validation errors.
@@ -290,7 +290,7 @@ class QuickformForm
     * error messages as values
     * @var object $errors
     */
-    var $errors;
+    public $errors;
 
    /**
     * Array of QuickformElementObject elements.  If there are headers in the form
@@ -298,13 +298,13 @@ class QuickformForm
     * separate sections
     * @var array $elements
     */
-    var $elements;
+    public $elements;
 
    /**
     * Array of sections contained in the document
     * @var array $sections
     */
-    var $sections;
+    public $sections;
 
    /**
     * Output &lt;form&gt; header
@@ -344,67 +344,67 @@ class QuickformElement
      * Element name
      * @var string $name
      */
-    var $name;
+    public $name;
 
     /**
      * Element value
      * @var mixed $value
      */
-    var $value;
+    public $value;
 
     /**
      * Type of element
      * @var string $type
      */
-    var $type;
+    public $type;
 
     /**
      * Whether the element is frozen
      * @var boolean $frozen
      */
-    var $frozen;
+    public $frozen;
 
     /**
      * Label for the element
      * @var string $label
      */
-    var $label;
+    public $label;
 
     /**
      * Whether element is required
      * @var boolean $required
      */
-    var $required;
+    public $required;
 
     /**
      * Error associated with the element
      * @var string $error
      */
-    var $error;
+    public $error;
 
     /**
      * Some information about element style
      * @var string $style
      */
-    var $style;
+    public $style;
 
     /**
      * HTML for the element
      * @var string $html
      */
-    var $html;
+    public $html;
 
     /**
      * If element is a group, the group separator
      * @var mixed $separator
      */
-    var $separator;
+    public $separator;
 
     /**
      * If element is a group, an array of subelements
      * @var array $elements
      */
-    var $elements;
+    public $elements;
 
     function isType($type)
     {

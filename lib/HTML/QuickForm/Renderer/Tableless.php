@@ -59,14 +59,14 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      string
      * @access   private
      */
-    var $_headerTemplate = "\n\t\t<legend>{header}</legend>\n\t\t<ol>";
+    public $_headerTemplate = "\n\t\t<legend>{header}</legend>\n\t\t<ol>";
 
     /**
      * Element template string
      * @var      string
      * @access   private
      */
-    var $_elementTemplate =
+    public $_elementTemplate =
         "\n\t\t\t<li><label class=\"element\"><!-- BEGIN required --><span class=\"required\">*</span><!-- END required -->{label}</label><div class=\"element<!-- BEGIN error --> error<!-- END error -->\"><!-- BEGIN error --><span class=\"error\">{error}</span><br /><!-- END error -->{element}</div></li>";
 
     /**
@@ -74,7 +74,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      string
      * @access   private
      */
-    var $_formTemplate =
+    public $_formTemplate =
         "\n<form{attributes}>\n\t<div style=\"display: none;\">\n{hidden}\t</div>\n{content}\n</form>";
 
     /**
@@ -82,7 +82,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      string
      * @access   private
      */
-    var $_openFieldsetTemplate = "\n\t<fieldset{id}{attributes}>";
+    public $_openFieldsetTemplate = "\n\t<fieldset{id}{attributes}>";
 
     /**
      * Template used when opening a hidden fieldset
@@ -90,21 +90,21 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      string
      * @access   private
      */
-    var $_openHiddenFieldsetTemplate = "\n\t<fieldset class=\"hidden{class}\">\n\t\t<ol>";
+    public $_openHiddenFieldsetTemplate = "\n\t<fieldset class=\"hidden{class}\">\n\t\t<ol>";
 
     /**
      * Template used when closing a fieldset
      * @var      string
      * @access   private
      */
-    var $_closeFieldsetTemplate = "\n\t\t</ol>\n\t</fieldset>";
+    public $_closeFieldsetTemplate = "\n\t\t</ol>\n\t</fieldset>";
 
     /**
      * Required Note template string
      * @var      string
      * @access   private
      */
-    var $_requiredNoteTemplate =
+    public $_requiredNoteTemplate =
         "\n\t\t\t<li class=\"reqnote\"><label class=\"element\">&nbsp;</label>{requiredNote}</li>";
 
     /**
@@ -112,7 +112,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      integer
      * @access   private
      */
-   var $_fieldsetsOpen = 0;
+   public $_fieldsetsOpen = 0;
 
     /**
      * Array of element names that indicate the end of a fieldset
@@ -120,14 +120,14 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
      * @var      array
      * @access   private
      */
-    var $_stopFieldsetElements = array();
+    public $_stopFieldsetElements = [];
 
     /**
      * Name of the currently active group
      * @var      string
      * @access   private
      */
-    var $_currentGroupName = '';
+    public $_currentGroupName = '';
 
     /**
      * Called when visiting a header element
@@ -265,7 +265,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
         $this->_groupTemplate        = str_replace('<label', '<label for="' . $name . '"', $this->_groupTemplate);
         $this->_groupElementTemplate = empty($this->_groupTemplates[$name])? '': $this->_groupTemplates[$name];
         $this->_groupWrap            = empty($this->_groupWraps[$name])? '': $this->_groupWraps[$name];
-        $this->_groupElements        = array();
+        $this->_groupElements        = [];
         $this->_inGroup              = true;
         $this->_currentGroupName     = $name;
     }
@@ -394,7 +394,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     public function addStopFieldsetElements($element, $class = '')
     {
         if (is_array($element)) {
-            $elements = array();
+            $elements = [];
             foreach ($element as $name) {
                 $elements[$name] = $class;
             }

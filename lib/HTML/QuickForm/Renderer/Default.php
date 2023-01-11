@@ -23,14 +23,14 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      string
     * @access   private
     */
-    var $_html;
+    public $_html;
 
    /**
     * Header Template string
     * @var      string
     * @access   private
     */
-    var $_headerTemplate =
+    public $_headerTemplate =
         "\n\t<tr>\n\t\t<td style=\"white-space: nowrap; background-color: #CCCCCC;\" align=\"left\" valign=\"top\" colspan=\"2\"><b>{header}</b></td>\n\t</tr>";
 
    /**
@@ -38,7 +38,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      string
     * @access   private
     */
-    var $_elementTemplate =
+    public $_elementTemplate =
         "\n\t<tr>\n\t\t<td align=\"right\" valign=\"top\"><!-- BEGIN required --><span style=\"color: #ff0000\">*</span><!-- END required --><b>{label}</b></td>\n\t\t<td valign=\"top\" align=\"left\"><!-- BEGIN error --><span style=\"color: #ff0000\">{error}</span><br /><!-- END error -->\t{element}</td>\n\t</tr>";
 
    /**
@@ -46,7 +46,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      string
     * @access   private
     */
-    var $_formTemplate =
+    public $_formTemplate =
         "\n<form{attributes}>\n<div>\n{hidden}<table border=\"0\">\n{content}\n</table>\n</div>\n</form>";
 
    /**
@@ -54,7 +54,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      string
     * @access   private
     */
-    var $_requiredNoteTemplate =
+    public $_requiredNoteTemplate =
         "\n\t<tr>\n\t\t<td></td>\n\t<td align=\"left\" valign=\"top\">{requiredNote}</td>\n\t</tr>";
 
    /**
@@ -62,7 +62,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      array
     * @access   private
     */
-    var $_templates = array();
+    public $_templates = [];
 
    /**
     * Array containing the templates for group wraps.
@@ -73,56 +73,56 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
     * @var      array
     * @access   private
     */
-    var $_groupWraps = array();
+    public $_groupWraps = [];
 
    /**
     * Array containing the templates for elements within groups
     * @var      array
     * @access   private
     */
-    var $_groupTemplates = array();
+    public $_groupTemplates = [];
 
    /**
     * True if we are inside a group
     * @var      bool
     * @access   private
     */
-    var $_inGroup = false;
+    public $_inGroup = false;
 
    /**
     * Array with HTML generated for group elements
     * @var      array
     * @access   private
     */
-    var $_groupElements = array();
+    public $_groupElements = [];
 
    /**
     * Template for an element inside a group
     * @var      string
     * @access   private
     */
-    var $_groupElementTemplate = '';
+    public $_groupElementTemplate = '';
 
    /**
     * HTML that wraps around the group elements
     * @var      string
     * @access   private
     */
-    var $_groupWrap = '';
+    public $_groupWrap = '';
 
    /**
     * HTML for the current group
     * @var      string
     * @access   private
     */
-    var $_groupTemplate = '';
+    public $_groupTemplate = '';
 
    /**
     * Collected HTML of the hidden fields
     * @var      string
     * @access   private
     */
-    var $_hiddenHtml = '';
+    public $_hiddenHtml = '';
 
    /**
     * returns the HTML generated for the form
@@ -299,7 +299,7 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
         $this->_groupTemplate        = $this->_prepareTemplate($name, $group->getLabel(), $required, $error);
         $this->_groupElementTemplate = empty($this->_groupTemplates[$name])? '': $this->_groupTemplates[$name];
         $this->_groupWrap            = empty($this->_groupWraps[$name])? '': $this->_groupWraps[$name];
-        $this->_groupElements        = array();
+        $this->_groupElements        = [];
         $this->_inGroup              = true;
     }
 
@@ -410,6 +410,6 @@ class HTML_QuickForm_Renderer_Default extends HTML_QuickForm_Renderer
         $this->setElementTemplate('{element}');
         $this->setFormTemplate("\n\t<form{attributes}>{content}\n\t</form>\n");
         $this->setRequiredNoteTemplate('');
-        $this->_templates = array();
+        $this->_templates = [];
     }
 }

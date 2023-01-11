@@ -24,7 +24,7 @@ class HTML_QuickForm_Renderer_QuickHtml extends HTML_QuickForm_Renderer_Default
      * The array of rendered elements
      * @var array
      */
-    var $renderedElements = array();
+    public $renderedElements = [];
 
     /**
      * Constructor
@@ -113,11 +113,7 @@ class HTML_QuickForm_Renderer_QuickHtml extends HTML_QuickForm_Renderer_Default
         $this->_html = '';
         parent::renderElement($element, $required, $error);
         if (!$this->_inGroup) {
-            $this->renderedElements[] = array(
-                    'name' => $element->getName(),
-                    'value' => $element->getValue(),
-                    'html' => $this->_html,
-                    'rendered' => false);
+            $this->renderedElements[] = ['name' => $element->getName(), 'value' => $element->getValue(), 'html' => $this->_html, 'rendered' => false];
         }
         $this->_html = '';
     }
@@ -127,11 +123,7 @@ class HTML_QuickForm_Renderer_QuickHtml extends HTML_QuickForm_Renderer_Default
      */
     public function renderHidden(&$element, $required, $error)
     {
-        $this->renderedElements[] = array(
-                'name' => $element->getName(),
-                'value' => $element->getValue(),
-                'html' => $element->toHtml(),
-                'rendered' => false);
+        $this->renderedElements[] = ['name' => $element->getName(), 'value' => $element->getValue(), 'html' => $element->toHtml(), 'rendered' => false];
     }
 
     /**
@@ -144,11 +136,7 @@ class HTML_QuickForm_Renderer_QuickHtml extends HTML_QuickForm_Renderer_Default
     {
         $this->_html = '';
         parent::finishGroup($group);
-        $this->renderedElements[] = array(
-                'name' => $group->getName(),
-                'value' => $group->getValue(),
-                'html' => $this->_html,
-                'rendered' => false);
+        $this->renderedElements[] = ['name' => $group->getName(), 'value' => $group->getValue(), 'html' => $this->_html, 'rendered' => false];
         $this->_html = '';
     }
 }

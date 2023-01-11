@@ -24,7 +24,7 @@ class HTML_QuickForm_Rule_Callback extends HTML_QuickForm_Rule
      * @var     array
      * @access  private
      */
-    var $_data = array();
+    public $_data = [];
 
    /**
     * Whether to use BC mode for specific rules
@@ -36,7 +36,7 @@ class HTML_QuickForm_Rule_Callback extends HTML_QuickForm_Rule
     * @var array
     * @access private
     */
-    var $_BCMode = array();
+    public $_BCMode = [];
 
     /**
      * Validates a value using a callback
@@ -50,7 +50,7 @@ class HTML_QuickForm_Rule_Callback extends HTML_QuickForm_Rule
         if (isset($this->_data[$this->name])) {
             $callback = $this->_data[$this->name];
             if (isset($callback[1])) {
-                return call_user_func(array($callback[1], $callback[0]), $value, $options);
+                return call_user_func([$callback[1], $callback[0]], $value, $options);
             } elseif ($this->_BCMode[$this->name]) {
                 return $callback[0]('', $value, $options);
             } else {
@@ -74,9 +74,9 @@ class HTML_QuickForm_Rule_Callback extends HTML_QuickForm_Rule
     public function addData($name, $callback, $class = null, $BCMode = false)
     {
         if (!empty($class)) {
-            $this->_data[$name] = array($callback, $class);
+            $this->_data[$name] = [$callback, $class];
         } else {
-            $this->_data[$name] = array($callback);
+            $this->_data[$name] = [$callback];
         }
         $this->_BCMode[$name] = $BCMode;
     }
@@ -92,6 +92,6 @@ class HTML_QuickForm_Rule_Callback extends HTML_QuickForm_Rule
             $callback = is_array($options)? $options[1]: $options;
             $params   = '{jsVar}';
         }
-        return array('', "{jsVar} != '' && !{$callback}({$params})");
+        return ['', "{jsVar} != '' && !{$callback}({$params})"];
     }
 }

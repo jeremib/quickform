@@ -83,7 +83,7 @@ class HTML_QuickForm_utils
         $last = array_pop($pathParts);
         foreach ($pathParts as $part) {
             if (!isset($r[$part])) {
-                $r[$part] = array();
+                $r[$part] = [];
             }
             $r = &$r[$part];
         }
@@ -131,7 +131,7 @@ class HTML_QuickForm_utils
      * @param   array   $source
      * @return  array
      */
-    public static function recursiveBuild($path, $value, $source = array()) {
+    public static function recursiveBuild($path, $value, $source = []) {
         self::pathSet($source, $path, $value);
         return $source;
     }

@@ -23,7 +23,7 @@ class HTML_QuickForm_RuleRegistry
      * @var     array
      * @access  private
      */
-    var $_rules = array();
+    public $_rules = [];
 
     /**
      * Returns a singleton of HTML_QuickForm_RuleRegistry
@@ -142,21 +142,21 @@ class HTML_QuickForm_RuleRegistry
      */
     public function getValidationScript(&$element, $elementName, $ruleData)
     {
-        $reset =  (isset($ruleData['reset'])) ? $ruleData['reset'] : false;
+        $reset =  $ruleData['reset'] ?? false;
         $rule  =& $this->getRule($ruleData['type']);
         if (!is_array($element)) {
-            list($jsValue, $jsReset) = $this->_getJsValue($element, $elementName, $reset, null);
+            [$jsValue, $jsReset] = $this->_getJsValue($element, $elementName, $reset, null);
         } else {
             $jsValue = "  value = new Array();\n";
             $jsReset = '';
             for ($i = 0; $i < count($element); $i++) {
-                list($tmp_value, $tmp_reset) = $this->_getJsValue($element[$i], $element[$i]->getName(), $reset, $i);
+                [$tmp_value, $tmp_reset] = $this->_getJsValue($element[$i], $element[$i]->getName(), $reset, $i);
                 $jsValue .= "\n" . $tmp_value;
                 $jsReset .= $tmp_reset;
             }
         }
-        $jsField = isset($ruleData['group'])? $ruleData['group']: $elementName;
-        list ($jsPrefix, $jsCheck) = $rule->getValidationScript($ruleData['format']);
+        $jsField = $ruleData['group'] ?? $elementName;
+        [$jsPrefix, $jsCheck] = $rule->getValidationScript($ruleData['format']);
         if (!isset($ruleData['howmany'])) {
             $js = $jsValue . "\n" . $jsPrefix .
                   "  if (" . str_replace('{jsVar}', 'value', $jsCheck) . " && !errFlag['{$jsField}']) {\n" .
@@ -313,6 +313,6 @@ class HTML_QuickForm_RuleRegistry
             $value = "  value{$jsIndex} = frm.elements['$elementName'].value;";
             $tmp_reset .= ($reset) ? "    field.value = field.defaultValue;\n" : '';
         }
-        return array($value, $tmp_reset);
+        return [$value, $tmp_reset];
     }
 }

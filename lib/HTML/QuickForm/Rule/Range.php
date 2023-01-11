@@ -44,6 +44,6 @@ class HTML_QuickForm_Rule_Range extends HTML_QuickForm_Rule
             default:
                 $test = '({jsVar}.length < '.$options[0].' || {jsVar}.length > '.$options[1].')';
         }
-        return array('', "{jsVar} != '' && {$test}");
+        return ['', "{jsVar} != '' && {$test}"];
     }
 }

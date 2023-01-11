@@ -22,16 +22,7 @@ class HTML_QuickForm_Rule_Compare extends HTML_QuickForm_Rule
     * @var array
     * @access private
     */
-    var $_operators = array(
-        'eq'  => '===',
-        'neq' => '!==',
-        'gt'  => '>',
-        'gte' => '>=',
-        'lt'  => '<',
-        'lte' => '<=',
-        '=='  => '===',
-        '!='  => '!=='
-    );
+    public $_operators = ['eq'  => '===', 'neq' => '!==', 'gt'  => '>', 'gte' => '>=', 'lt'  => '<', 'lte' => '<=', '=='  => '===', '!='  => '!=='];
 
 
    /**
@@ -84,6 +75,6 @@ class HTML_QuickForm_Rule_Compare extends HTML_QuickForm_Rule
         } else {
             $check = "!(String({jsVar}[0]) {$operator} String({jsVar}[1]))";
         }
-        return array('', "'' != {jsVar}[0] && {$check}");
+        return ['', "'' != {jsVar}[0] && {$check}"];
     }
 }

@@ -22,7 +22,7 @@ abstract class HTML_Common
      * @var     array
      * @access  private
      */
-    var $_attributes = array();
+    public $_attributes = [];
 
     /**
      * Tab offset of the tag
@@ -30,7 +30,7 @@ abstract class HTML_Common
      * @var     int
      * @access  private
      */
-    var $_tabOffset = 0;
+    public $_tabOffset = 0;
 
     /**
      * Tab string
@@ -38,7 +38,7 @@ abstract class HTML_Common
      * @var       string
      * @access    private
      */
-    var $_tab = "\11";
+    public $_tab = "\11";
 
     /**
      * Contains the line end string
@@ -46,7 +46,7 @@ abstract class HTML_Common
      * @var       string
      * @access    private
      */
-    var $_lineEnd = "\12";
+    public $_lineEnd = "\12";
 
     /**
      * HTML comment on the object
@@ -54,7 +54,7 @@ abstract class HTML_Common
      * @var       string
      * @access    private
      */
-    var $_comment = '';
+    public $_comment = '';
 
     /**
      * Class constructor
@@ -143,8 +143,9 @@ abstract class HTML_Common
      */
     function _parseAttributes($attributes)
     {
+        $arrAttr = [];
         if (is_array($attributes)) {
-            $ret = array();
+            $ret = [];
             foreach ($attributes as $key => $value) {
                 if (is_int($key)) {
                     $key = $value = strtolower($value);
@@ -159,7 +160,7 @@ abstract class HTML_Common
             $preg = "/(([A-Za-z_:]|[^\\x00-\\x7F])([A-Za-z0-9_:.-]|[^\\x00-\\x7F])*)" .
                 "([ \\n\\t\\r]+)?(=([ \\n\\t\\r]+)?(\"[^\"]*\"|'[^']*'|[^ \\n\\t\\r]*))?/";
             if (preg_match_all($preg, $attributes, $regs)) {
-                for ($counter=0; $counter<count($regs[1]); $counter++) {
+                for ($counter=0; $counter<(is_countable($regs[1]) ? count($regs[1]) : 0); $counter++) {
                     $name  = $regs[1][$counter];
                     $check = $regs[0][$counter];
                     $value = $regs[7][$counter];

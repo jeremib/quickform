@@ -35,6 +35,6 @@ class HTML_QuickForm_Rule_Required extends HTML_QuickForm_Rule
 
     function getValidationScript($options = null)
     {
-        return array('', "{jsVar} == ''");
+        return ['', "{jsVar} == ''"];
     }
 }

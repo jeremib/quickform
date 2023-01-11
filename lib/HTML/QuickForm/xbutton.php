@@ -19,7 +19,7 @@ class HTML_QuickForm_xbutton extends HTML_QuickForm_element
     * @var      string
     * @access   private
     */
-    var $_content;
+    public $_content;
 
    /**
     * Class constructor
@@ -53,9 +53,7 @@ class HTML_QuickForm_xbutton extends HTML_QuickForm_element
 
     function setName($name)
     {
-        $this->updateAttributes(array(
-            'name' => $name
-        ));
+        $this->updateAttributes(['name' => $name]);
     }
 
     function getName()
@@ -65,9 +63,7 @@ class HTML_QuickForm_xbutton extends HTML_QuickForm_element
 
     function setValue($value)
     {
-        $this->updateAttributes(array(
-            'value' => $value
-        ));
+        $this->updateAttributes(['value' => $value]);
     }
 
     function getValue()

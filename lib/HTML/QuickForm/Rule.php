@@ -52,6 +52,6 @@ abstract class HTML_QuickForm_Rule
      */
     public function getValidationScript($options = null)
     {
-        return array('', '');
+        return ['', ''];
     }
 }

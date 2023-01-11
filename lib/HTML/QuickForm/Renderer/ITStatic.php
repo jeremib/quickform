@@ -26,61 +26,61 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
     * An HTML_Template_IT or some other API compatible Template instance
     * @var object
     */
-    var $_tpl = null;
+    public $_tpl = null;
 
    /**
     * Rendered form name
     * @var string
     */
-    var $_formName = 'form';
+    public $_formName = 'form';
 
    /**
     * The errors that were not shown near concrete fields go here
     * @var array
     */
-    var $_errors = array();
+    public $_errors = [];
 
    /**
     * Show the block with required note?
     * @var bool
     */
-    var $_showRequired = false;
+    public $_showRequired = false;
 
    /**
     * Which group are we currently parsing ?
     * @var string
     */
-    var $_inGroup;
+    public $_inGroup;
 
    /**
     * Index of the element in its group
     * @var int
     */
-    var $_elementIndex = 0;
+    public $_elementIndex = 0;
 
    /**
     * If elements have been added with the same name
     * @var array
     */
-    var $_duplicateElements = array();
+    public $_duplicateElements = [];
 
    /**
     * How to handle the required tag for required fields
     * @var string
     */
-    var $_required = '{label}<font size="1" color="red">*</font>';
+    public $_required = '{label}<font size="1" color="red">*</font>';
 
    /**
     * How to handle error messages in form validation
     * @var string
     */
-    var $_error = '<font color="red">{error}</font><br />{html}';
+    public $_error = '<font color="red">{error}</font><br />{html}';
 
    /**
     * Collected HTML for hidden elements, if needed
     * @var string
     */
-    var $_hidden = '';
+    public $_hidden = '';
    /**#@-*/
 
    /**
@@ -102,7 +102,7 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
     {
         $this->_formName = $form->getAttribute('id');
 
-        if (count($form->_duplicateIndex) > 0) {
+        if ((is_countable($form->_duplicateIndex) ? count($form->_duplicateIndex) : 0) > 0) {
             // Take care of duplicate elements
             foreach ($form->_duplicateIndex as $elementName => $indexes) {
                 $this->_duplicateElements[$elementName] = 0;
@@ -172,7 +172,7 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
 
         // are we inside a group?
         if (!empty($this->_inGroup)) {
-            $varName = $this->_formName.'_'.str_replace(array('[', ']'), '_', $name);
+            $varName = $this->_formName.'_'.str_replace(['[', ']'], '_', $name);
             if (substr($varName, -2) == '__') {
                 // element name is of type : group[]
                 $varName = $this->_inGroup.'_'.$this->_elementIndex.'_';
@@ -202,7 +202,7 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
 
         } else {
 
-            $name = str_replace(array('[', ']'), array('_', ''), $name);
+            $name = str_replace(['[', ']'], ['_', ''], $name);
 
             if (isset($this->_duplicateElements[$name])) {
                 // Element is a duplicate
@@ -242,7 +242,7 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
             $this->_hidden .= $element->toHtml();
         } else {
             $name = $element->getName();
-            $name = str_replace(array('[', ']'), array('_', ''), $name);
+            $name = str_replace(['[', ']'], ['_', ''], $name);
             $this->_tpl->setVariable($this->_formName.'_'.$name.'_html', $element->toHtml());
         }
     }
@@ -423,12 +423,12 @@ class HTML_QuickForm_Renderer_ITStatic extends HTML_QuickForm_Renderer
             $this->_tpl->setVariable($this->_formName . '_error', null);
         } elseif (!empty($label) && strpos($this->_error, '{label}') !== false) {
             if (is_array($label)) {
-                $label[0] = str_replace(array('{label}', '{error}'), array($label[0], $error), $this->_error);
+                $label[0] = str_replace(['{label}', '{error}'], [$label[0], $error], $this->_error);
             } else {
-                $label = str_replace(array('{label}', '{error}'), array($label, $error), $this->_error);
+                $label = str_replace(['{label}', '{error}'], [$label, $error], $this->_error);
             }
         } elseif (!empty($html) && strpos($this->_error, '{html}') !== false) {
-            $html = str_replace(array('{html}', '{error}'), array($html, $error), $this->_error);
+            $html = str_replace(['{html}', '{error}'], [$html, $error], $this->_error);
         } else {
             $this->_errors[] = $error;
         }

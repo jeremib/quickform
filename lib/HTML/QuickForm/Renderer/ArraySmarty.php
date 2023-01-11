@@ -75,16 +75,14 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
     private $_tpl = null;
 
    /**
-    * Current element index
-    * @var integer
-    */
-    private $_elementIdx = 0;
+     * Current element index
+     */
+    private int $_elementIdx = 0;
 
     /**
-    * The current element index inside a group
-    * @var integer
-    */
-    private $_groupElementIdx = 0;
+     * The current element index inside a group
+     */
+    private int $_groupElementIdx = 0;
 
    /**
     * How to handle the required tag for required fields
@@ -189,13 +187,13 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
             if (isset($matches[1])) {
                 $sKeysSub = substr_replace($ret['name'], '', 0, strlen($matches[1]));
                 $sKeysSub = str_replace(
-                    array('\\',   '\'',   '['  ,   ']', '[\'\']'),
-                    array('\\\\', '\\\'', '[\'', '\']', '[]'    ),
+                    ['\\', '\'', '[', ']', '[\'\']'],
+                    ['\\\\', '\\\'', '[\'', '\']', '[]'],
                     $sKeysSub
                 );
-                $sKeys = '[\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $matches[1]) . '\']' . $sKeysSub;
+                $sKeys = '[\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $matches[1]) . '\']' . $sKeysSub;
             } else {
-                $sKeys = '[\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret['name']) . '\']';
+                $sKeys = '[\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret['name']) . '\']';
             }
             // special handling for elements in native groups
             if ($this->_currentGroup) {
@@ -205,7 +203,7 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
                     return false;
                 }
                 // reduce string of keys by remove leading group keys
-                if (0 === strpos($sKeys, $this->_currentGroup['keys'])) {
+                if (0 === strpos($sKeys, (string) $this->_currentGroup['keys'])) {
                     $sKeys = substr_replace($sKeys, '', 0, strlen($this->_currentGroup['keys']));
                 }
             }
@@ -214,11 +212,11 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
             $sKeys = '[\'element_' . $this->_elementIdx . '\']';
         // other elements
         } else {
-            $sKeys = '[\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret['name']) . '\']';
+            $sKeys = '[\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret['name']) . '\']';
         }
         // for radios: add extra key from value
         if ('radio' == $ret['type'] and substr($sKeys, -2) != '[]') {
-            $sKeys .= '[\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret['value']) . '\']';
+            $sKeys .= '[\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret['value']) . '\']';
         }
         $this->_elementIdx++;
         $ret['keys'] = $sKeys;
@@ -262,19 +260,14 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
     */
     private function _renderRequired(&$label, &$html, &$required, &$error)
     {
-        $this->_tpl->assign(array(
-            'label'    => $label,
-            'html'     => $html,
-            'required' => $required,
-            'error'    => $error
-        ));
+        $this->_tpl->assign(['label'    => $label, 'html'     => $html, 'required' => $required, 'error'    => $error]);
         if (!empty($label) && strpos($this->_required, $this->_tpl->left_delimiter . '$label') !== false) {
             $label = $this->_tplFetch($this->_required);
         }
         if (!empty($html) && strpos($this->_required, $this->_tpl->left_delimiter . '$html') !== false) {
             $html = $this->_tplFetch($this->_required);
         }
-        $this->_tpl->clear_assign(array('label', 'html', 'required'));
+        $this->_tpl->clear_assign(['label', 'html', 'required']);
     }
 
    /**
@@ -292,16 +285,16 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
     */
     private function _renderError(&$label, &$html, &$error)
     {
-        $this->_tpl->assign(array('label' => '', 'html' => '', 'error' => $error));
+        $this->_tpl->assign(['label' => '', 'html' => '', 'error' => $error]);
         $error = $this->_tplFetch($this->_error);
-        $this->_tpl->assign(array('label' => $label, 'html'  => $html));
+        $this->_tpl->assign(['label' => $label, 'html'  => $html]);
 
         if (!empty($label) && strpos($this->_error, $this->_tpl->left_delimiter . '$label') !== false) {
             $label = $this->_tplFetch($this->_error);
         } elseif (!empty($html) && strpos($this->_error, $this->_tpl->left_delimiter . '$html') !== false) {
             $html = $this->_tplFetch($this->_error);
         }
-        $this->_tpl->clear_assign(array('label', 'html', 'error'));
+        $this->_tpl->clear_assign(['label', 'html', 'error']);
     }
 
    /**
@@ -318,7 +311,7 @@ class HTML_QuickForm_Renderer_ArraySmarty extends HTML_QuickForm_Renderer_Array
         if (!function_exists('smarty_function_eval')) {
             require SMARTY_DIR . '/plugins/function.eval.php';
         }
-        return smarty_function_eval(array('var' => $tplSource), $this->_tpl);
+        return smarty_function_eval(['var' => $tplSource], $this->_tpl);
     }
 
    /**

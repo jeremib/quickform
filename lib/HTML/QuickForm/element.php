@@ -24,7 +24,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
      * @var       string
      * @access    private
      */
-    var $_label = '';
+    public $_label = '';
 
     /**
      * Form element type
@@ -32,7 +32,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
      * @var       string
      * @access    private
      */
-    var $_type = '';
+    public $_type = '';
 
     /**
      * Flag to tell if element is frozen
@@ -40,7 +40,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
      * @var       boolean
      * @access    private
      */
-    var $_flagFrozen = false;
+    public $_flagFrozen = false;
 
     /**
      * Does the element support persistant data when frozen
@@ -48,7 +48,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
      * @var       boolean
      * @access    private
      */
-    var $_persistantFreeze = false;
+    public $_persistantFreeze = false;
 
     /**
      * Class constructor
@@ -169,11 +169,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
             return '';
         } else {
             $id = $this->getAttribute('id');
-            return '<input' . $this->_getAttrString(array(
-                       'type'  => 'hidden',
-                       'name'  => $this->getName(),
-                       'value' => $this->getValue()
-                   ) + (isset($id)? array('id' => $id): array())) . ' />';
+            return '<input' . $this->_getAttrString(['type'  => 'hidden', 'name'  => $this->getName(), 'value' => $this->getValue()] + (isset($id)? ['id' => $id]: [])) . ' />';
         }
     }
 
@@ -233,7 +229,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
             return $values[$elementName];
         } elseif (strpos($elementName, '[')) {
             $keys = str_replace(
-                array('\\', '\'', ']', '['), array('\\\\', '\\\'', '', "']['"),
+                ['\\', '\'', ']', '['], ['\\\\', '\\\'', '', "']['"],
                 $elementName
             );
             $arrayKeys = explode("']['", $keys);
@@ -302,7 +298,7 @@ abstract class HTML_QuickForm_element extends HTML_Common
         static $idx = 1;
 
         if (!$this->getAttribute('id')) {
-            $this->updateAttributes(array('id' => 'qf_' . substr(md5(microtime() . $idx++), 0, 6)));
+            $this->updateAttributes(['id' => 'qf_' . substr(md5(microtime() . $idx++), 0, 6)]);
         }
     }
 
@@ -339,10 +335,10 @@ abstract class HTML_QuickForm_element extends HTML_Common
         } else {
             $name = $this->getName();
             if (!strpos($name, '[')) {
-                return array($name => $value);
+                return [$name => $value];
             } else {
                 $keys = str_replace(
-                    array('\\', '\'', ']', '['), array('\\\\', '\\\'', '', "']['"),
+                    ['\\', '\'', ']', '['], ['\\\\', '\\\'', '', "']['"],
                     $name
                 );
                 $keysArray = explode("']['", $keys);

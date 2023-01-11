@@ -24,7 +24,7 @@ class HTML_QuickForm_checkbox extends HTML_QuickForm_input
      * @var       string
      * @access    private
      */
-    var $_text = '';
+    public $_text = '';
 
     /**
      * Class constructor
@@ -41,7 +41,7 @@ class HTML_QuickForm_checkbox extends HTML_QuickForm_input
         $this->_persistantFreeze = true;
         $this->_text = $text;
         $this->setType('checkbox');
-        $this->updateAttributes(array('value'=>1));
+        $this->updateAttributes(['value'=>1]);
         $this->_generateId();
     }
 
@@ -55,7 +55,7 @@ class HTML_QuickForm_checkbox extends HTML_QuickForm_input
         if (!$checked) {
             $this->removeAttribute('checked');
         } else {
-            $this->updateAttributes(array('checked'=>'checked'));
+            $this->updateAttributes(['checked'=>'checked']);
         }
     }
 

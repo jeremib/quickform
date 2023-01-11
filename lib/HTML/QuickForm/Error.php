@@ -12,7 +12,7 @@ class HTML_QuickForm_Error extends Exception
      * Prefix for all error messages
      * @var string
      */
-    var $error_message_prefix = 'QuickForm Error: ';
+    public $error_message_prefix = 'QuickForm Error: ';
 
     /**
      * Creates a quickform error exception

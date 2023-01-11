@@ -24,7 +24,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      * @var       string
      * @access    private
      */
-    var $_name = '';
+    public $_name = '';
 
     /**
      * Array of grouped elements
@@ -32,7 +32,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      * @var       array
      * @access    private
      */
-    var $_elements = array();
+    public $_elements = [];
 
     /**
      * String to separate elements
@@ -40,7 +40,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      * @var       mixed
      * @access    private
      */
-    var $_separator = null;
+    public $_separator = null;
 
     /**
      * Required elements in this group
@@ -48,7 +48,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      * @var       array
      * @access    private
      */
-    var $_required = array();
+    public $_required = [];
 
    /**
     * Whether to change elements' names to $groupName[$elementName] or leave them as is
@@ -56,7 +56,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
     * @var      bool
     * @access   private
     */
-    var $_appendName = true;
+    public $_appendName = true;
 
     /**
      * Class constructor
@@ -160,7 +160,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
                     $value = $v;
                 } else {
                     if (!is_array($value)) {
-                        $value = is_null($value)? array(): array($value);
+                        $value = is_null($value)? []: [$value];
                     }
                     if ('' === $elementName) {
                         $value[] = $v;
@@ -206,6 +206,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      */
     public function getGroupType()
     {
+        $type = null;
         $this->_createElementsIfNotExist();
         $prevType = '';
         foreach (array_keys($this->_elements) as $key) {
@@ -277,7 +278,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      */
     public function getFrozenHtml()
     {
-        $flags = array();
+        $flags = [];
         $this->_createElementsIfNotExist();
         foreach (array_keys($this->_elements) as $key) {
             if (false === ($flags[$key] = $this->_elements[$key]->isFrozen())) {
@@ -390,7 +391,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
             if (null !== $v) {
                 // Make $value an array, we will use it like one
                 if (null === $value) {
-                    $value = array();
+                    $value = [];
                 }
                 if ($assoc) {
                     // just like HTML_QuickForm::exportValues()

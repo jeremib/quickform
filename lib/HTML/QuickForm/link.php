@@ -22,7 +22,7 @@ class HTML_QuickForm_link extends HTML_QuickForm_static
      * @var       string
      * @access    private
      */
-    var $_text = "";
+    public $_text = "";
 
     /**
      * Class constructor
@@ -49,7 +49,7 @@ class HTML_QuickForm_link extends HTML_QuickForm_static
      */
     public function setName($name)
     {
-        $this->updateAttributes(array('name'=>$name));
+        $this->updateAttributes(['name'=>$name]);
     }
 
     /**
@@ -87,7 +87,7 @@ class HTML_QuickForm_link extends HTML_QuickForm_static
      */
     public function setHref($href)
     {
-        $this->updateAttributes(array('href'=>$href));
+        $this->updateAttributes(['href'=>$href]);
     }
 
     /**

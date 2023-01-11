@@ -23,13 +23,7 @@ class HTML_QuickForm_Rule_Regex extends HTML_QuickForm_Rule
      * @var     array
      * @access  private
      */
-    var $_data = array(
-                    'lettersonly'   => '/^[a-zA-Z]+$/',
-                    'alphanumeric'  => '/^[a-zA-Z0-9]+$/',
-                    'numeric'       => '/(^-?\d\d*\.\d*$)|(^-?\d\d*$)|(^-?\.\d\d*$)/',
-                    'nopunctuation' => '/^[^().\/\*\^\?#!@$%+=,\"\'><~\[\]{}]+$/',
-                    'nonzero'       => '/^-?[1-9][0-9]*/'
-                    );
+    public $_data = ['lettersonly'   => '/^[a-zA-Z]+$/', 'alphanumeric'  => '/^[a-zA-Z0-9]+$/', 'numeric'       => '/(^-?\d\d*\.\d*$)|(^-?\d\d*$)|(^-?\.\d\d*$)/', 'nopunctuation' => '/^[^().\/\*\^\?#!@$%+=,\"\'><~\[\]{}]+$/', 'nonzero'       => '/^-?[1-9][0-9]*/'];
 
     /**
      * Validates a value using a regular expression
@@ -69,7 +63,7 @@ class HTML_QuickForm_Rule_Regex extends HTML_QuickForm_Rule
 
     function getValidationScript($options = null)
     {
-        $regex = isset($this->_data[$this->name]) ? $this->_data[$this->name] : $options;
+        $regex = $this->_data[$this->name] ?? $options;
 
         // bug #12376, converting unicode escapes and stripping 'u' modifier
         if ($pos = strpos($regex, 'u', strrpos($regex, '/'))) {
@@ -77,6 +71,6 @@ class HTML_QuickForm_Rule_Regex extends HTML_QuickForm_Rule
             $regex = preg_replace('/(?<!\\\\)(?>\\\\\\\\)*\\\\x{([a-fA-F0-9]+)}/', '\\u$1', $regex);
         }
 
-        return array("  var regex = " . $regex . ";\n", "{jsVar} != '' && !regex.test({jsVar})");
+        return ["  var regex = " . $regex . ";\n", "{jsVar} != '' && !regex.test({jsVar})"];
     }
 }

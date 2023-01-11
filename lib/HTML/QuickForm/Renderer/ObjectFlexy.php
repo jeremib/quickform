@@ -39,40 +39,40 @@ class HTML_QuickForm_Renderer_ObjectFlexy extends HTML_QuickForm_Renderer_Object
      * HTML_Template_Flexy instance
      * @var object $_flexy
      */
-    var $_flexy;
+    public $_flexy;
 
     /**
      * Current element index
      * @var integer $_elementIdx
      */
-    var $_elementIdx;
+    public $_elementIdx;
 
     /**
      * The current element index inside a group
      * @var integer $_groupElementIdx
      */
-    var $_groupElementIdx = 0;
+    public $_groupElementIdx = 0;
 
     /**
      * Name of template file for form html
      * @var string $_html
      * @see     setRequiredTemplate()
      */
-    var $_html = '';
+    public $_html = '';
 
     /**
      * Name of template file for form labels
      * @var string $label
      * @see        setErrorTemplate()
      */
-    var $label = '';
+    public $label = '';
 
     /**
      * Class of the element objects, so you can add your own
      * element methods
      * @var string $_elementType
      */
-    var $_elementType = 'QuickformFlexyElement';
+    public $_elementType = 'QuickformFlexyElement';
    /**#@-*/
 
     /**
@@ -140,10 +140,10 @@ class HTML_QuickForm_Renderer_ObjectFlexy extends HTML_QuickForm_Renderer_Object
         // Create an element key from the name
         if (false !== ($pos = strpos($ret->name, '[')) || is_object($this->_currentGroup)) {
             if (!$pos) {
-                $keys = '->{\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret->name) . '\'}';
+                $keys = '->{\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret->name) . '\'}';
             } else {
                 $keys = '->{\'' . str_replace(
-                            array('\\', '\'', '[', ']'), array('\\\\', '\\\'', '\'}->{\'', ''),
+                            ['\\', '\'', '[', ']'], ['\\\\', '\\\'', '\'}->{\'', ''],
                             $ret->name
                         ) . '\'}';
             }
@@ -155,18 +155,18 @@ class HTML_QuickForm_Renderer_ObjectFlexy extends HTML_QuickForm_Renderer_Object
                     return false;
                 }
                 // reduce string of keys by remove leading group keys
-                if (0 === strpos($keys, $this->_currentGroup->keys)) {
+                if (0 === strpos($keys, (string) $this->_currentGroup->keys)) {
                     $keys = substr_replace($keys, '', 0, strlen($this->_currentGroup->keys));
                 }
             }
         } elseif (0 == strlen($ret->name)) {
             $keys = '->{\'element_' . $this->_elementIdx . '\'}';
         } else {
-            $keys = '->{\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret->name) . '\'}';
+            $keys = '->{\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret->name) . '\'}';
         }
         // for radios: add extra key from value
         if ('radio' == $ret->type && '[]' != substr($keys, -2)) {
-            $keys .= '->{\'' . str_replace(array('\\', '\''), array('\\\\', '\\\''), $ret->value) . '\'}';
+            $keys .= '->{\'' . str_replace(['\\', '\''], ['\\\\', '\\\''], $ret->value) . '\'}';
         }
         $ret->keys = $keys;
         $this->_elementIdx++;

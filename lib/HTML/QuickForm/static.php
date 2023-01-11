@@ -19,7 +19,7 @@ class HTML_QuickForm_static extends HTML_QuickForm_element
      * @var       string
      * @access    private
      */
-    var $_text = null;
+    public $_text = null;
 
     /**
      * Class constructor
@@ -42,7 +42,7 @@ class HTML_QuickForm_static extends HTML_QuickForm_element
      */
     public function setName($name)
     {
-        $this->updateAttributes(array('name'=>$name));
+        $this->updateAttributes(['name'=>$name]);
     }
 
     /**
