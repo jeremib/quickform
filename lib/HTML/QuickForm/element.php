@@ -66,6 +66,9 @@ abstract class HTML_QuickForm_element extends HTML_Common
         if (isset($elementLabel)) {
             $this->setLabel($elementLabel);
         }
+        if(!isset($attributes['id'])) {
+            $this->setAttribute('id', $elementName);
+        }
     }
 
     /**
